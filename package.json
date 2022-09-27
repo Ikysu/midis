@@ -1,0 +1,29 @@
+{
+  "name": "midis",
+  "version": "14.0.0",
+  "description": "",
+  "main": "api.js",
+  "scripts": {
+    "start": "node api.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ikysu/midis.git"
+  },
+  "author": "ikysu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ikysu/midis/issues"
+  },
+  "homepage": "https://github.com/ikysu/midis#readme",
+  "type": "module",
+  "dependencies": {
+    "@fastify/cors": "^8.1.0",
+    "@fastify/formbody": "^7.3.0",
+    "@fastify/static": "^6.5.0",
+    "@fastify/swagger": "^7.6.1",
+    "async-request": "^1.2.0",
+    "cheerio": "1.0.0-rc.12",
+    "fastify": "^4.6.0"
+  }
+}
