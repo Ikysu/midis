@@ -61,7 +61,7 @@ async function authdata_decrypt(authdata) {
 }
 
 const fastify = Fastify({
-    logger:true
+    logger:false
 })
 
 fastify.get("/info", async (reqs, reply)=>{
