@@ -3,6 +3,7 @@ import fs from 'fs';
 import Fastify from 'fastify';
 import formBodyPlugin from '@fastify/formbody';
 import fastifyCors from '@fastify/cors';
+import fetch from 'async-request'; 
 
 var lang = JSON.parse(fs.readFileSync("./language.json"));
 
@@ -290,6 +291,14 @@ fastify.ready(err => {
 fastify.listen({
     host:server.host,
     port:server.port
+},(err)=>{
+    if(err) console.log("ERR", err)
+    fetch(server.webhook, {
+        headers:{"content-type":"application/json"},
+        method:"POST",
+        data:{
+            content:"NSFW API запущен"+(err? " с ошибками!\n"+err.message : "!")
+        }
+    })
+    console.log("Server init")
 });
-
-console.log("Server init")
