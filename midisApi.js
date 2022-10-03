@@ -34,7 +34,9 @@ async function ajax (authdata, method, data) {
         'Cookie':authdata.cookie,
         "x-bitrix-csrf-token":authdata.sessid
     },data}))
-    if(res.statusCode!=200) return {error:lang.midisRestError}
+    if(res.statusCode!=200) {
+        return {error:lang.midisRestError}
+    }
     return JSON.parse(res.body)
 }
 
@@ -193,7 +195,6 @@ async function getProfile (authdata, anotherId) {
         if(!res.result.length) return {error:lang.userNotFound}
         var r = await rest(authdata, 'department.get', {id: res.result[0].UF_DEPARTMENT[0]})
         if(r.error) return r;
-        console.log(res)
         return {
             id:+res.result[0].ID,
             name:res.result[0].LAST_NAME+" "+res.result[0].NAME,
@@ -206,7 +207,6 @@ async function getProfile (authdata, anotherId) {
     }else{
         var res = await rest(authdata, 'im.user.get')
         if(res.error) return res;
-        console.log(res)
         var r = await rest(authdata, 'department.get', {id: res.result.departments[0]})
         if(r.error) return r;
         return {

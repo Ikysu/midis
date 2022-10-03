@@ -115,8 +115,6 @@ fastify.get("/schedule", async (reqs, reply)=>{
 
         let sc = await api.getSchedule(ad.data.authdata);
 
-        console.log(1, sc)
-
         return sc
     } catch (error) {
         console.log(error);
