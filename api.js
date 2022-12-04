@@ -7,10 +7,6 @@ import fetch from 'async-request';
 
 var lang = JSON.parse(fs.readFileSync("./language.json"));
 
-var apiVer = (+fs.readFileSync("whatUsay").toString());
-apiVer++
-fs.writeFileSync("whatUsay", `${apiVer}`)
-
 
 var server = JSON.parse(fs.readFileSync("settings.json"))
 
@@ -63,15 +59,6 @@ async function authdata_decrypt(authdata) {
 
 const fastify = Fastify({
     logger:false
-})
-
-fastify.get("/info", async (reqs, reply)=>{
-    try{
-        return {version:apiVer,developers:server.devs}
-    } catch (error) {
-        console.log(error);
-        return {error:lang.unknownError}
-    }
 })
 
 fastify.post("/auth", async (reqs, reply)=>{
@@ -275,6 +262,28 @@ fastify.get("/search", async (reqs, reply)=>{
         return {error:lang.unknownError}
     }
 })
+
+
+//fastify.post("/avatar", async (reqs, reply)=>{
+//    try{
+//    signedParams.+?'.+?'
+//        if(!reqs.headers.authorization) return {error:lang.noAuthHeader}
+//        var ad = await authdata_decrypt(reqs.headers.authorization)
+//        if(ad.error) return ad
+//        reply.header("Access-Control-Expose-Headers", "x-update");
+//        if(ad.update) reply.header("x-update", authdata_encrypt(ad.data));
+//        
+//        let res = await api.ajax(ad.data.authdata, reqs.query[""] || reqs.query["url"], reqs.body)
+//        
+//        return res;
+//
+//        return {}
+//    } catch (error) {
+//        console.log(error);
+//        return {error:lang.unknownError}
+//    }
+//})
+//
 
 fastify.register(formBodyPlugin)
 fastify.register(fastifyCors, { 

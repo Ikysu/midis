@@ -100,7 +100,9 @@ async function getSchedule (authdata, onlyCurrentDays=false) {
     if(res.statusCode!=200) return {error:lang.statusNot200}
     var prop = cheerio.load(res.body)
     var groups = prop('div[class="subgroupContent"]')
-    var out = {}
+    var out = {};
+    let nowDate = new Date();
+    let tomorrowDate = new Date((+nowDate)+86400000)
     groups.splice(0,groups.length/2).forEach(group=>{
         var info = group.children.gat("h4","h5","div")
         var groupName = info[0].children[0].data
@@ -175,8 +177,8 @@ async function getSchedule (authdata, onlyCurrentDays=false) {
                 })
                 
                 if(onlyCurrentDays){
-                    if(dayName.search('Сегодня')!=-1) outGroup.currentDays.thisDay=outDay
-                    if(dayName.search('Завтра')!=-1) outGroup.currentDays.nextDay=outDay
+                    if(dayName.search(nowDate.toLocaleDateString().slice(0,-4))!=-1) outGroup.currentDays.thisDay=outDay
+                    if(dayName.search(tomorrowDate.toLocaleDateString().slice(0,-4))!=-1) outGroup.currentDays.nextDay=outDay
                 }else{
                     outGroup.weeks[weekId].push(outDay)
                 }
